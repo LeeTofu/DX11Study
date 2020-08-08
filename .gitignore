@@ -32,8 +32,10 @@
 *.app
 
 # 넣을필요없는거
-DX11Proj/Debug/
 *.vcxproj
 *.sln
 *.vcxproj.filters
 *.vcxproj.user
+*.tlog
+
+Debug/
