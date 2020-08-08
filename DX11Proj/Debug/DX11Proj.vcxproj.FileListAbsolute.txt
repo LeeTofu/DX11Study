@@ -1,0 +1,2 @@
+D:\SourceTree\DX11Study\DX11Proj\Debug\DX11Proj.exe
+D:\SourceTree\DX11Study\DX11Proj\Debug\DX11Proj.pdb

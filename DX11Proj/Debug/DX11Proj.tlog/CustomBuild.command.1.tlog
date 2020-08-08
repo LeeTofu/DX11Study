@@ -1,0 +1,12 @@
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\BASIC.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\Basic.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\Basic.fx"
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\DISPLACEMENTMAP.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\DisplacementMap.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\DisplacementMap.fx"
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\BUILDSHADOWMAP.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\BuildShadowMap.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\BuildShadowMap.fx"
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\DEBUGTEXTURE.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\DebugTexture.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\DebugTexture.fx"
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\NORMALMAP.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\NormalMap.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\NormalMap.fx"
+^D:\SOURCETREE\DX11STUDY\DX11PROJ\FX\SKY.FX
+fxc /Fc /Od /Zi /T fx_5_0 /Fo "FX\\Sky.fxo" "D:\SourceTree\DX11Study\DX11Proj\FX\Sky.fx"
