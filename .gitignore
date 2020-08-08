@@ -38,4 +38,5 @@
 *.vcxproj.user
 *.tlog
 
-Debug/
+DX11Proj/Debug/
+DX11Proj/.vs/
