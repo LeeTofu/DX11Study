@@ -25,6 +25,11 @@
 #include "RenderStates.h"
 #include "ShadowMap.h"
 
+//ImGui Headers
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_win32.h"
+#include "ImGui/imgui_impl_dx11.h"
+
 enum RenderOptions
 {
 	RenderOptionsBasic = 0,
@@ -241,6 +246,7 @@ ShadowsApp::ShadowsApp(HINSTANCE hInstance)
 	mSkullMat.Diffuse  = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
 	mSkullMat.Specular = XMFLOAT4(0.8f, 0.8f, 0.8f, 16.0f);
 	mSkullMat.Reflect  = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+
 }
 
 ShadowsApp::~ShadowsApp()
@@ -292,6 +298,14 @@ bool ShadowsApp::Init()
 	BuildShapeGeometryBuffers();
 	BuildSkullGeometryBuffers();
 	BuildScreenQuadGeometryBuffers();
+
+	//ImGui init
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplWin32_Init(mhMainWnd);
+	ImGui_ImplDX11_Init(md3dDevice, md3dImmediateContext);
+	ImGui::StyleColorsDark();
 
 	return true;
 }
@@ -358,6 +372,7 @@ void ShadowsApp::DrawScene()
 	DrawSceneToShadowMap();
 
 	md3dImmediateContext->RSSetState(0);
+
 
 	//
 	// Restore the back and depth buffer to the OM stage.
@@ -645,7 +660,7 @@ void ShadowsApp::DrawScene()
 	}
 
 	// Debug view depth buffer.
-//	if( GetAsyncKeyState('Z') & 0x8000 )
+	if( GetAsyncKeyState('Z') & 0x8000 )
 	{
 		DrawScreenQuad();
 	}
@@ -661,6 +676,19 @@ void ShadowsApp::DrawScene()
 	ID3D11ShaderResourceView* nullSRV[16] = { 0 };
 	md3dImmediateContext->PSSetShaderResources(0, 16, nullSRV);
 
+	//ImGui 그리기 시작
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	//ImGui 테스트용 창 생성
+	ImGui::Begin("Test");
+	ImGui::End();
+
+	//그리기
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	
+	
 	HR(mSwapChain->Present(0, 0));
 }
 
