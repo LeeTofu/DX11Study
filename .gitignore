@@ -33,3 +33,7 @@
 
 # 넣을필요없는거
 DX11Study/Debug/
+*.vcxproj
+*.sln
+*.vcxproj.filters
+*.vcxproj.user
