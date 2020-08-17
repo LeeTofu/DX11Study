@@ -30,6 +30,9 @@
 #include "ImGui/imgui_impl_win32.h"
 #include "ImGui/imgui_impl_dx11.h"
 
+//Assimp Test headers
+#include "AssimpModelLoader.h"
+
 enum RenderOptions
 {
 	RenderOptionsBasic = 0,
@@ -162,7 +165,7 @@ ShadowsApp::ShadowsApp(HINSTANCE hInstance)
   mSkullIndexCount(0),  mRenderOptions(RenderOptionsNormalMap), mSmap(0),
   mLightRotationAngle(0.0f)
 {
-	mMainWndCaption = L"Shadows Demo";
+	mMainWndCaption = L"STUDY";
 	
 	mLastMousePos.x = 0;
 	mLastMousePos.y = 0;
@@ -298,6 +301,7 @@ bool ShadowsApp::Init()
 	BuildShapeGeometryBuffers();
 	BuildSkullGeometryBuffers();
 	BuildScreenQuadGeometryBuffers();
+
 
 	//ImGui init
 	IMGUI_CHECKVERSION();
