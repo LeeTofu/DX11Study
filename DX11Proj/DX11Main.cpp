@@ -69,6 +69,7 @@ private:
 	void BuildShapeGeometryBuffers();
 	void BuildSkullGeometryBuffers();
 	void BuildScreenQuadGeometryBuffers();
+	void BuildAssimpMeshGeometryBuffers();
 
 private:
 
@@ -94,6 +95,15 @@ private:
 
 	BoundingSphere mSceneBounds;
 
+	//for AssimpMesh
+	ID3D11Buffer* mAssimpMeshesVB;
+	ID3D11Buffer* mAssimpMeshesIB;
+	Mesh mAssimpMesh;
+	UINT mAMeshIndexOffset;
+	UINT mAMeshIndexCount;
+
+
+
 	static const int SMapSize = 2048;
 	ShadowMap* mSmap;
 	XMFLOAT4X4 mLightView;
@@ -108,6 +118,10 @@ private:
 	Material mCylinderMat;
 	Material mSphereMat;
 	Material mSkullMat;
+
+	
+
+
 
 	// Define transformations from local spaces to world space.
 	XMFLOAT4X4 mSphereWorld[10];
@@ -302,6 +316,9 @@ bool ShadowsApp::Init()
 	BuildSkullGeometryBuffers();
 	BuildScreenQuadGeometryBuffers();
 
+	//Mesh init;
+	mAssimpMesh.LoadMesh("Models/mutant.fbx");
+	BuildAssimpMeshGeometryBuffers();
 
 	//ImGui init
 	IMGUI_CHECKVERSION();
@@ -1175,4 +1192,44 @@ void ShadowsApp::BuildScreenQuadGeometryBuffers()
     D3D11_SUBRESOURCE_DATA iinitData;
     iinitData.pSysMem = &quad.Indices[0];
     HR(md3dDevice->CreateBuffer(&ibd, &iinitData, &mScreenQuadIB));
+}
+
+void ShadowsApp::BuildAssimpMeshGeometryBuffers()
+{
+	mAMeshIndexOffset = 0;
+	mAMeshIndexCount = mAssimpMesh.m_meshData[0].Indices.size();
+
+	std::vector<Vertex::PosNormalTexTan> vertices(mAssimpMesh.m_meshData[0].Vertices.size());
+
+	UINT k = 0;
+	for (size_t i = 0; i < mAssimpMesh.m_meshData[0].Vertices.size(); ++i, ++k)
+	{
+		vertices[k].Pos = mAssimpMesh.m_meshData[0].Vertices[i].Position;
+		vertices[k].Normal = mAssimpMesh.m_meshData[0].Vertices[i].Normal;
+		vertices[k].Tex = mAssimpMesh.m_meshData[0].Vertices[i].TexC;
+		vertices[k].TangentU = mAssimpMesh.m_meshData[0].Vertices[i].TangentU;
+	}
+
+	D3D11_BUFFER_DESC vbd;
+	vbd.Usage = D3D11_USAGE_IMMUTABLE;
+	vbd.ByteWidth = sizeof(Vertex::PosNormalTexTan) * mAssimpMesh.m_meshData[0].Vertices.size();
+	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vbd.CPUAccessFlags = 0;
+	vbd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA vinitData;
+	vinitData.pSysMem = &vertices[0];
+	HR(md3dDevice->CreateBuffer(&vbd, &vinitData, &mAssimpMeshesVB));
+
+	std::vector<UINT> indices;
+	indices.insert(indices.end(), mAssimpMesh.m_meshData[0].Indices.begin(), mAssimpMesh.m_meshData[0].Indices.end());
+
+	D3D11_BUFFER_DESC ibd;
+	ibd.Usage = D3D11_USAGE_IMMUTABLE;
+	ibd.ByteWidth = sizeof(UINT) * mAMeshIndexCount;
+	ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	ibd.CPUAccessFlags = 0;
+	ibd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA iinitData;
+	iinitData.pSysMem = &indices[0];
+	HR(md3dDevice->CreateBuffer(&ibd, &iinitData, &mAssimpMeshesIB));
 }

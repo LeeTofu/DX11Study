@@ -1,0 +1,3 @@
+﻿Effects.obj : error LNK2019: D3DX11CreateEffectFromMemory"public: __cdecl Effect::Effect(struct ID3D11Device *,class std::basic_string<wchar_t,struct std::char_traits<wchar_t>,class std::allocator<wchar_t> > const &)" (??0Effect@@QEAA@PEAUID3D11Device@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+D:\SourceTree\DX11Study\Common\Effects11d.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+D:\SourceTree\DX11Study\DX11Proj\x64\Debug\DX11Proj.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.

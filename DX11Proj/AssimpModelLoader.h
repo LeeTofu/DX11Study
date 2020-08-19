@@ -1,10 +1,11 @@
 #pragma once
+
 #include "Singleton.h"
 #include "Mesh.h"
 #include "unordered_map"
 
 
-
+/*
 class AssimpModelLoader : public Singleton<AssimpModelLoader>
 {
 private:
@@ -18,3 +19,5 @@ public:
 	AssimpModelLoader();
 	~AssimpModelLoader();
 };
+
+*/

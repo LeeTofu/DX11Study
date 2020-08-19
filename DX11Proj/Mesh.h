@@ -1,4 +1,6 @@
 #pragma once
+
+
 #include "Vertex.h"
 #include <vector>
 
@@ -6,14 +8,15 @@
 #include "GeometryGenerator.h"
 
 //Assimp Headers
-#include "Assimp/Importer.hpp"
-#include "Assimp/cimport.h"
-#include "Assimp/postprocess.h"
-#include "Assimp/scene.h"
+#include "Importer.hpp"
+#include "cimport.h"
+#include "postprocess.h"
+#include "scene.h"
+
 
 class Mesh
 {
-private:
+public:
 	std::vector<GeometryGenerator::MeshData> m_meshData;
 	UINT m_materialIndex;
 
